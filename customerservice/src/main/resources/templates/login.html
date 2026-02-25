@@ -1,26 +1,55 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<!doctype html>
+<html>
 <head>
-    <title>Login</title>
-    <meta charset="UTF-8">
+  <meta charset="utf-8"/>
+  <title>Login</title>
 </head>
 <body>
-
-<h2>Login</h2>
-
-<form th:action="@{/auth/login}" method="post">
-    <label>Username:</label>
-    <input type="text" name="username"/><br/><br/>
-
-    <label>Password:</label>
-    <input type="password" name="password"/><br/><br/>
-
+  <h2>Login</h2>
+  <form id="loginForm">
+    <label>Username: <input id="username" /></label><br/>
+    <label>Password: <input id="password" type="password" /></label><br/>
     <button type="submit">Login</button>
-</form>
+  </form>
+  <div id="msg"></div>
+  <script>
+    const form = document.getElementById('loginForm');
+    
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      console.log("Login js loaded");
+      const res = await fetch('/auth/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username, password})
+      });
 
-<p th:if="${param.error}" style="color:red">
-    Invalid username or password
-</p>
-
+      const data = await res.json();
+      if (res.ok) {
+        // store token
+        localStorage.setItem('jwtToken', data.token);
+        localStorage.setItem('username', data.username);
+        localStorage.setItem('role',data.authorities);
+        document.getElementById('msg').innerText = 'Logged in. Go to Home.';
+          switch (data.role) {
+        case "ADMIN":
+            window.location.href = "adminHome.html";
+            break;
+        case "CUSTOMER":
+            window.location.href = "BookYourFlight.html";
+            break;
+        case "ENGINEER":
+            window.location.href = "ITHomePage.html";
+            break;
+        default:
+            alert("Unknown role");
+    }
+      } else {
+        document.getElementById('msg').innerText = data.error || JSON.stringify(data);
+      }
+    });
+  </script>
 </body>
 </html>

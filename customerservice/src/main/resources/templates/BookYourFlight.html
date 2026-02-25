@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <title>BookYourFlights</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+<h1>Book Your Flight</h1>
+<h3>This webapplication lets customers/users choose their flights and buy flight tickets</h3>
+
+
+<button onclick="logout()">Logout</a>
+
+</body>
+<script>
+    function logout() {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("username");
+    localStorage.removeItem("role");
+
+    window.location.href = "login.html";
+}
+</script>
+</html>

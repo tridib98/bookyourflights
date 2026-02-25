@@ -37,8 +37,10 @@ public class SecuirtyConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/h2-console").permitAll()
+                .requestMatchers("/login.html").permitAll()
                 .requestMatchers("/", "/login", "/auth/**", "/h2-console/**", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
+                
             )
 
             
