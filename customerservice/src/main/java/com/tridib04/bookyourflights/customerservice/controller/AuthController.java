@@ -35,7 +35,9 @@ public class AuthController {
             Authentication auth = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
             );
+            System.out.println("=====================================");
             System.out.println("In login section");
+            System.out.println("=====================================");
             UserDetails userDetails = uds.loadUserByUsername(request.getUsername());
             String token = jwtService.generateToken(userDetails);
 
@@ -46,6 +48,9 @@ public class AuthController {
                     "authorities", userDetails.getAuthorities()
             ));
         } catch (BadCredentialsException ex) {
+            System.out.println("=====================================");
+            System.out.println("Error In Authenticating"+ex);
+            System.out.println("=====================================");
             return ResponseEntity.status(401).body(Map.of("error", "Invalid credentials"));
         }
     }
