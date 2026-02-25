@@ -21,7 +21,7 @@ public class HomeController {
     }
 
     @PreAuthorize("hasRole('CUSTOMER')")
-    @GetMapping("/customer")
+    @GetMapping("/home")
     public String regulatoryEndpoint() {
         return "Customer  Content";
     }

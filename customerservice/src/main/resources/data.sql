@@ -1,2 +1,6 @@
-INSERT INTO Users (username, password)
-VALUES ('user','$2a$12$4leyAR.ClA1VZo.k7800NObq8ZRd5L13/5CeotFoHCZ1UH1BqClsa');
+INSERT INTO Users (username, role, password)
+VALUES ('admin','ADMIN','admin');
+INSERT INTO Users (username, role, password)
+VALUES ('customer','CUSTOMER','customer');
+INSERT INTO Users (username, role, password)
+VALUES ('it','ENGINEER','it');

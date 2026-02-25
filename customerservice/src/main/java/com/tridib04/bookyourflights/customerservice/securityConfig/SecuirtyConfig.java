@@ -18,7 +18,9 @@ import com.tridib04.bookyourflights.customerservice.security.JwtAuthFilter;
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecuirtyConfig {
+    @Autowired
     private final JwtAuthFilter jwtAuthFilter;
+    @Autowired
     private final UserDetailsService userDetailsService;
 
     public SecuirtyConfig(JwtAuthFilter jwtAuthFilter, UserDetailsService userDetailsService) {
@@ -28,21 +30,21 @@ public class SecuirtyConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // 🔴 disable CSRF globally (needed for Postman/JS)
+            // disable CSRF globally (needed for Postman/JS)
             .csrf(csrf -> csrf.disable())
 
             // allow login + H2 console without authentication
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/h2-console/**").permitAll()
-                .requestMatchers("/", "/index.html", "/login.html", "/home.html", "/static/**").permitAll()
+                .requestMatchers("/h2-console").permitAll()
+                .requestMatchers("/", "/login", "/auth/**", "/h2-console/**", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
             )
 
             
             // allow H2 console to work in browser
             .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
-
+            //.headers(headers -> headers.frameOptions(frame -> frame.disable()))
             // JWT → stateless
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
