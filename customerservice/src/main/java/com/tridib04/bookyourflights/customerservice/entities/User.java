@@ -1,6 +1,5 @@
 package com.tridib04.bookyourflights.customerservice.entities;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +13,7 @@ public class User {
     @Column(name="username", nullable=false)
     private String username;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="role",nullable=false)
     private Role role;
 

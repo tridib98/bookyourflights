@@ -38,6 +38,8 @@ public class SecuirtyConfig {
                 .requestMatchers("/h2-console/**").permitAll()
                 .requestMatchers("/h2-console").permitAll()
                 .requestMatchers("/login.html").permitAll()
+                .requestMatchers("/error").permitAll()
+                .requestMatchers("/favicon.ico").permitAll()
                 .requestMatchers("/", "/login", "/auth/**", "/h2-console/**", "/css/**", "/js/**").permitAll()
                 .anyRequest().authenticated()
                 

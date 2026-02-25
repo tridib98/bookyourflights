@@ -32,15 +32,16 @@
         localStorage.setItem('jwtToken', data.token);
         localStorage.setItem('username', data.username);
         localStorage.setItem('role',data.authorities);
+         const role = data.authorities[0].authority;
         document.getElementById('msg').innerText = 'Logged in. Go to Home.';
-          switch (data.role) {
-        case "ADMIN":
+          switch (role) {
+        case "ROLE_ADMIN":
             window.location.href = "adminHome.html";
             break;
-        case "CUSTOMER":
+        case "ROLE_CUSTOMER":
             window.location.href = "BookYourFlight.html";
             break;
-        case "ENGINEER":
+        case "ROLE_ENGINEER":
             window.location.href = "ITHomePage.html";
             break;
         default:

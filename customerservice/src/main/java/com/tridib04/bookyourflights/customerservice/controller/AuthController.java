@@ -31,6 +31,9 @@ public class AuthController {
     }
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+        System.out.println("=====================================");
+        System.out.println("Controlled called login method");
+        System.out.println("=====================================");
         try {
             Authentication auth = authManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
